@@ -4,6 +4,8 @@ import de.slapps.pantrymate.data.PantryRepository
 import de.slapps.pantrymate.data.UserRepository
 import de.slapps.pantrymate.data.local.AppDataStore
 import de.slapps.pantrymate.data.remote.AuthInterceptor
+import de.slapps.pantrymate.data.remote.PantryService
+import de.slapps.pantrymate.data.remote.UserService
 import de.slapps.pantrymate.ui.viewmodels.ItemDetailsViewModel
 import de.slapps.pantrymate.ui.viewmodels.LoginViewModel
 import de.slapps.pantrymate.ui.viewmodels.PantryContentViewModel
@@ -32,6 +34,8 @@ val appModule = module {
     single { AuthInterceptor(get()) }
     single { getOkHttp(get()) }
     single { getRetrofit(get()) }
+    single { get<Retrofit>().create(UserService::class.java) }
+    single { get<Retrofit>().create(PantryService::class.java) }
 }
 
 private fun getOkHttp(authInterceptor: AuthInterceptor): OkHttpClient {
